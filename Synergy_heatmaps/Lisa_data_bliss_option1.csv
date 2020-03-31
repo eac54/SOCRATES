@@ -1,0 +1,22 @@
+﻿Combinations,H1792,H1944,H1568,H522,HCC827,PC9
+AUY922 + AZD5363,0.24,0,0.2,0.3,0.11,0.32
+AUY922 + Everolimus,0.16,0.33,0.02,0,0.14,0.07
+AUY922 + GDC0941 ,0.15,0.07,0.38,0.15,0.11,0.67
+AUY922 + Gefitinib,0.24,0.4,0.24,0.18,0.22,0.2
+AUY922 + Trametinib,0.24,0,0,0.1,0.02,0.03
+AUY922 + Vemurafenib,0.18,0.24,0.09,0.17,0.16,0.02
+AZD5363 + Everolimus,0.1,0.2,0.22,0.28,0.09,0.29
+AZD5363 + GDC0941,0.09,0.15,0.2,0.01,0.16,0.1
+AZD5363 + Gefitinib,0.28,0.39,0.24,0.2,0.03,0.12
+AZD5363 + Trametinib,0.2,0.2,0.35,0.27,0.6,0.49
+AZD5363 + Vemurafenib,0.19,0.1,0.21,0.32,0.18,0.2
+Everolimus + GDC0941,0.12,0.1,0.17,0.27,0.08,0.2
+Everolimus + Gefitinib,0.24,0.1,0.3,0,0.19,0.3
+Everolimus + Trametinib,0.14,0.03,0.2,0.4,0.2,0.04
+Everolimus + Vemurafenib,0.09,0.14,0.1,0.16,0.04,0.15
+GDC0941 + Gefitinib,0.23,0.4,0.15,0.12,0.38,0.16
+GDC0941 + Trametinib,0.07,0.07,0.08,0.28,0.27,0.18
+GDC0941 + Vemurafenib,0.17,0.5,0.37,0.37,0.26,0.34
+Gefitinib + Trametinib,0.3,0.06,0.1,0.09,0.25,0.44
+Gefitinib + Vemurafenib,0.08,0.24,0.3,0.08,0.2,0.42
+Trametinib +Vemurafenib,0,0.2,0.16,0.01,0.38,0.05
