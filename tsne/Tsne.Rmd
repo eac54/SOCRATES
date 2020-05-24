@@ -1,0 +1,33 @@
+---
+title: "tSNE on patient and cell line proteomics, all values"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+
+## Data import
+
+```{r}
+data_read<-read.table("Merged_Fold_change_all_values.txt",sep="\t",header=TRUE)
+
+library(tsne)
+data_read$SampleType<-gsub("Cellline", "C", data_read$SampleType)
+data_read$SampleType<-gsub("Patient", "P", data_read$SampleType)
+```
+
+```{r}
+colors = c("blue", "yellow")
+shapes=c(18,19)
+names(colors) = unique(data_read$SampleType)
+names(shapes) = unique(data_read$SampleType)
+ecb = function(x,y){ plot(x,t='p', xlab = "tsne dimension 1", ylab = "tsne dimension 2", pch=shapes[data_read$SampleType], col=colors[data_read$SampleType])}
+
+
+set.seed(27)
+tsne(data_read[,4:56], initial_config = NULL, k = 2, initial_dims = 30, perplexity = 30,
+max_iter = 1000, min_cost = 0, epoch_callback = ecb, whiten = TRUE,
+epoch=100)
+```
+
+The tsne plots produced show little if any separation between the two sample types. The final image of this tsne has been saved as 'Tsne plot.pdf'. 
