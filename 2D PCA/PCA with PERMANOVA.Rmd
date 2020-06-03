@@ -1,0 +1,79 @@
+---
+title: "PCA with PERMANOVA"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+
+## Data import
+
+```{r}
+set.seed(27)
+data_read<-read.table("Merged_Fold_change_all_values.txt",sep="\t",header=TRUE)
+data_read$SampleType<-as.numeric(data_read$SampleType)
+data_read$SampleID<-as.numeric(data_read$SampleID)
+data_read$Drug<-as.numeric(data_read$Drug)
+```
+
+## PCA and PerMANOVA on all data
+```{r}
+iris_c <- scale(data_read[ ,-1:-4])
+library(vegan)
+pca <- rda(iris_c)
+
+# plot
+plot(pca, type = 'n', display = 'sites', xlim = c(-4,6), ylim=c(-2.5,3.5))
+cols <- c('yellow', 'blue')
+points(pca, display='sites', col = cols[data_read$SampleType], pch = 16)
+ordihull(pca, groups=data_read$SampleType)
+ordispider(pca, groups = data_read$SampleType, label = TRUE)
+
+# PerMANOVA - partitioning the euclidean distance matrix by species
+adonis(iris_c ~ SampleType, data = data_read, method='eu')
+
+# Coordinates of centroids
+a<-ordispider(pca,  groups = data_read$SampleType, label = TRUE)
+a[1,]
+a[255,]
+
+#Euclidean distance between points
+sqrt(((0.1436174 -0.06565365)^2) + ((0.1565998 -0.07158849)^2))
+
+```
+
+The centroid of the patient samples (blue) is (0.1565998,0.1436174). The centroid of the cell line samples (yellow) is (-0.07158849,-0.06565365). The Euclidean ditance between these centroids is 0.1153485.
+
+## PCA and PerMANOVA - outlying cell line and patient samples removed
+```{r}
+set.seed(27)
+data_read<-read.table("Merged_Fold_change_all_values.txt",sep="\t",header=TRUE)
+data_read$SampleType<-as.numeric(data_read$SampleType)
+data_read$SampleID<-as.numeric(data_read$SampleID)
+data_read$Drug<-as.numeric(data_read$Drug)
+data_read<-subset(data_read, data_read$SampleID!=32)
+data_read<-subset(data_read, data_read$SampleID!=37)
+data_read<-subset(data_read, data_read$SampleID!=39)
+iris_c <- scale(data_read[ ,-1:-4])
+library(vegan)
+pca <- rda(iris_c)
+
+# plot
+plot(pca, type = 'n', display = 'sites', xlim = c(-4,6), ylim=c(-2.5,3.5))
+cols <- c('yellow', 'blue')
+points(pca, display='sites', col = cols[data_read$SampleType], pch = 16)
+ordihull(pca, groups=data_read$SampleType)
+ordispider(pca, groups = data_read$SampleType, label = TRUE)
+
+# PerMANOVA - partitioning the euclidean distance matrix by species
+adonis(iris_c ~ SampleType, data = data_read, method='eu')
+
+# Coordinates of centroids
+a<-ordispider(pca,  groups = data_read$SampleType, label = TRUE)
+a[1,]
+a[240,]
+
+#Euclidean distance between points
+sqrt(((0.20285899 -0.083530172)^2) + ((0.01003338 -0.004131391)^2))
+```
+The centroid of the patient samples (blue) is (0.20285899, 0.010033377). The centroid of the cell line samples (yellow) is (-0.08353017, -0.004131391). The Euclidean distance between these points is 0.119474 - removing the outliers moves the centroids slightly further apart.
